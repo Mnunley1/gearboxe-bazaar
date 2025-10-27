@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a Next.js 15 car marketplace application with:
+This is a monorepo car marketplace application with:
 
 - **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS v4
 - **Backend**: Convex (real-time database and functions)
@@ -10,13 +10,36 @@ This is a Next.js 15 car marketplace application with:
 - **Payments**: Stripe
 - **UI Components**: Radix UI primitives with custom styling
 - **Styling**: Tailwind CSS with class-variance-authority (CVA)
+- **Monorepo**: pnpm workspaces with Turborepo
+
+## Monorepo Structure
+
+- **@car-market/web**: Main customer-facing app (port 3000)
+- **@car-market/admin**: Admin panel (port 3001)
+- **@car-market/ui**: Shared UI components package
+- **@car-market/convex**: Shared Convex backend functions
+
+### Import Conventions
+
+- Use workspace imports: `import { Button } from "@car-market/ui/button"`
+- Local imports from app components: `import { Navbar } from "../../components/navbar"`
+- Use `@/` for local absolute imports within apps
+- Shared UI components go in `@car-market/ui` package
+- App-specific components go in each app's `/components/` directory
+
+### Commands
+
+- `pnpm dev` - Run all apps
+- `pnpm lint` - Lint all packages with Biome
+- `pnpm format` - Format all packages with Biome
+- `pnpm --filter @car-market/web <script>` - Run command in specific package
 
 ## Code Style & Standards
 
 ### TypeScript
 
 - Use strict TypeScript with proper type definitions
-- Prefer `interface` over `type` for object shapes
+- **Prefer `type` over `interface` for object shapes**
 - Use `const` assertions for literal types
 - Leverage TypeScript's path mapping (`@/*` for root imports)
 - Always define return types for functions (especially async functions)
@@ -34,7 +57,8 @@ This is a Next.js 15 car marketplace application with:
 
 ### File Organization
 
-- Components go in `/components/ui/` for reusable UI components
+- Shared UI components go in `@car-market/ui` package
+- App-specific components go in each app's `/components/` directory
 - Page components go in `/src/app/` following App Router structure
 - Custom hooks go in `/hooks/`
 - Utility functions go in `/lib/`
@@ -47,7 +71,7 @@ This is a Next.js 15 car marketplace application with:
 - Implement compound component patterns where appropriate
 - Use `forwardRef` for components that need ref forwarding
 - Export both the component and its variants (if using CVA)
-- Use proper prop interfaces extending HTML element props
+- Use proper prop types extending HTML element props
 - Implement `displayName` for debugging
 
 ### Styling with Tailwind & CVA
@@ -127,9 +151,9 @@ This is a Next.js 15 car marketplace application with:
 - Use sufficient color contrast
 - Include alt text for images
 
-### Code Quality
+### Linting & Code Quality
 
-- Use ESLint configuration provided in the project
+- Use Biome for linting and formatting (configured in biome.jsonc)
 - Follow consistent naming conventions
 - Write self-documenting code with clear variable names
 - Use proper JSDoc comments for complex functions
@@ -178,9 +202,10 @@ This is a Next.js 15 car marketplace application with:
 
 - Use environment variables for sensitive configuration
 - Follow Next.js environment variable conventions
+- Environment files are at root AND in each app directory
 - Use proper TypeScript configuration
 - Configure Tailwind CSS properly for the project structure
-- Use ESLint with Next.js and TypeScript rules
+- Biome configuration is shared via root biome.jsonc
 
 ## Documentation
 

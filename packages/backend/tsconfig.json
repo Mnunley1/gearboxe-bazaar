@@ -1,0 +1,16 @@
+{
+  "extends": "../ui/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2021"],
+    "module": "ESNext",
+    "moduleResolution": "bundler"
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "_generated"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@car-market/convex",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./*": "./convex/*"
+  },
+  "scripts": {
+    "lint": "biome lint --write convex/",
+    "format": "biome format --write convex/"
+  },
+  "dependencies": {
+    "convex": "^1.27.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.1",
+    "typescript": "^5"
+  }
+}
